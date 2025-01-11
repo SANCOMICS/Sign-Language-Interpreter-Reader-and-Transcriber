@@ -135,6 +135,41 @@ Draws bounding boxes around detected hands.
 Shows hand landmarks and gesture information on the screen.
 
 
+        In app.py, the different modes are controlled by the command-line arguments and can be switched using specific options
+
+        1. Static vs. Dynamic Image Processing
+        --use_static_image_mode: This argument toggles between static and dynamic image processing.
+        Static Mode: The program processes a single static image (frame) at a time. This is useful when you want to test or process a single gesture.
+        Dynamic Mode: The program continuously processes frames from a video feed (real-time processing). This mode is ideal for detecting gestures in a live video stream.
+        2. Camera Configuration
+        Device and Video Settings: The app allows the configuration of the video feed using command-line arguments that can define:
+        The specific device (camera) used for capturing video.
+        The video resolution, which determines the quality and size of the captured frames.
+        3. Gesture Detection Modes
+        KeyPointClassifier Mode: This mode uses a static hand gesture classifier (based on key points) to recognize hand gestures when they are stationary. It's for detecting individual gestures, such as specific letters or symbols made by the hand.
+        PointHistoryClassifier Mode: This mode analyzes hand movement over time and recognizes gestures based on the sequence of hand movements (gesture history). It's ideal for recognizing gestures that require movement or transitions, not just static positions.
+        4. Gesture Mapping and Actions
+        SPACE, DELETE, and READ Gestures: These special gestures are mapped to actions:
+        SPACE: Adds a space character in the recognized text.
+        DELETE: Deletes the last character typed or removes the last gesture input.
+        READ: Converts the typed text into speech (text-to-speech), allowing the user to hear the transcription.
+        5. Prediction Queue and Time Window
+        2-second prediction window: The app uses a 2-second time window to decide the most probable gesture, ensuring that a single gesture is detected correctly over a short period of time.
+        Updates Current Word: Based on the most common gesture in the last 2 seconds, it updates the current word being typed.
+        6. Real-time Feedback Mode
+        Visual Feedback: This mode provides real-time feedback by:
+        Drawing bounding boxes around the detected hands.
+        Displaying hand landmarks on the video feed.
+        Showing the recognized gesture and constructed word on the screen.
+        7. Customizable Mode Switching
+        Mode Switching: The app allows switching between different modes (KeyPointClassifier and PointHistoryClassifier) using numeric keys. Each key corresponds to a specific classifier or processing mode. This flexibility allows users to experiment with different methods for gesture recognition.
+        8. Visualization Enhancements
+        The app enhances the visualization of hand gestures by drawing:
+        Bounding boxes around the detected hands.
+        Hand landmarks and gesture information to improve the user experience and understanding of the process.
+
+
+
 
 
 # KEYPOINT CLASSIFIER PY
@@ -211,6 +246,11 @@ Returns the invalid_value if the confidence score is below the threshold.
 
 
 
+
+
+
+SUMMARIES
+
 1. Sign-Language-Interpreter-Reader-and-Transcriber
 This program uses the device's camera to capture a person performing sign language.
 It transcribes the captured sign language gestures into text and then reads the text aloud using text-to-speech (TTS).
@@ -251,3 +291,35 @@ Output: Returns the predicted gesture label based on the model’s output.
 Model Initialization: Loads a TFLite model to classify gestures based on the sequence of hand movement points.
 Inference: Takes a sequence of hand movement points, runs inference on the model, and processes the output to return the predicted gesture class.
 Confidence Threshold: Ensures that the predicted class has a high enough confidence score before returning the result.
+
+
+
+
+
+
+
+HOW TO RUN PROJECT
+
+ON WINDOWS
+
+python -m venv venv
+.\venv\Scripts\activate
+
+
+ON MAC
+
+python3 -m venv venv
+source venv/bin/activate
+
+
+pip install --upgrade pip     
+
+pip install opencv-python mediapipe tensorflow numpy
+pip install pyttsx3
+
+
+# run code
+python app.py
+select a python environment if necessary
+
+
